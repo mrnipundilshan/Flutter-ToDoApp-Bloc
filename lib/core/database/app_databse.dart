@@ -1,6 +1,5 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
-import 'task_model.dart';
 
 class AppDatabase {
   static final AppDatabase instance = AppDatabase._init();
