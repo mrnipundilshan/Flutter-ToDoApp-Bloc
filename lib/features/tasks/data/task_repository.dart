@@ -1,7 +1,7 @@
 import '../../../core/database/app_databse.dart';
 import '../../../core/database/task_model.dart';
 
-class TaskRespository {
+class TaskRepository {
   Future<List<Task>> getTasks() async {
     final db = await AppDatabase.instance.database;
     final result = await db.query('tasks');
