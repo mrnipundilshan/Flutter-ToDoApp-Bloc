@@ -1,19 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'features/tasks/data/task_repository.dart';
+import 'features/tasks/logic/task_bloc.dart';
+import 'features/tasks/logic/task_event.dart';
+import 'features/tasks/presentation/pages/task_list_page.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  final TaskRepository repository = TaskRepository();
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        ),
+    return MaterialApp(
+      title: 'ToDo App',
+      home: BlocProvider(
+        create: (_) => TaskBloc(repository)..add(LoadTasks()),
+        child: TaskListPage(),
       ),
     );
   }
