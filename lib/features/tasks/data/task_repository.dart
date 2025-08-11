@@ -10,12 +10,12 @@ class TaskRepository {
 
   Future<void> addTask(Task task) async {
     final db = await AppDatabase.instance.database;
-    await db.insert('task', task.toMap());
+    await db.insert('tasks', task.toMap());
   }
 
   Future<void> updateTask(Task task) async {
     final db = await AppDatabase.instance.database;
-    await db.update('task', task.toMap(), where: 'id=?', whereArgs: [task.id]);
+    await db.update('tasks', task.toMap(), where: 'id=?', whereArgs: [task.id]);
   }
 
   Future<void> deleteTask(int id) async {

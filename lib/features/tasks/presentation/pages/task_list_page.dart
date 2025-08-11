@@ -5,8 +5,22 @@ import '../../logic/task_event.dart';
 import '../../logic/task_state.dart';
 import '../../../../core/database/task_model.dart';
 
-class TaskListPage extends StatelessWidget {
+class TaskListPage extends StatefulWidget {
   const TaskListPage({super.key});
+
+  @override
+  State<TaskListPage> createState() => _TaskListPageState();
+}
+
+class _TaskListPageState extends State<TaskListPage> {
+  @override
+  void initState() {
+    super.initState();
+    // schedule load AFTER the first frame so it won't conflict with build
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<TaskBloc>().add(LoadTasks());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +61,7 @@ class TaskListPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.teal,
-        onPressed: _showTaskDialog(context),
+        onPressed: () => _showTaskDialog(context),
         child: const Icon(Icons.add),
       ),
     );
@@ -83,13 +97,13 @@ Widget _taskCard(BuildContext context, Task task) {
   );
 }
 
-_showTaskDialog(BuildContext context, {Task? task}) {
+Future<void> _showTaskDialog(BuildContext context, {Task? task}) async {
   final titleController = TextEditingController(text: task?.title ?? "");
   final descController = TextEditingController(text: task?.description ?? "");
 
-  showDialog(
+  await showDialog(
     context: context,
-    builder: (_) {
+    builder: (context) {
       return AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusGeometry.circular(12),
