@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:path/path.dart';
 import '../../logic/task_bloc.dart';
 import '../../logic/task_event.dart';
 import '../../logic/task_state.dart';

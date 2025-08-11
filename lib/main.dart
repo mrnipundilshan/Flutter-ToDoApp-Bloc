@@ -12,6 +12,8 @@ void main() {
 class MyApp extends StatelessWidget {
   final TaskRepository repository = TaskRepository();
 
+  MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
